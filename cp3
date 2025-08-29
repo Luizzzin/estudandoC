@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include<time.h>
+
+// =========ALUNOS==============
+// Luiz Henrique Barbosa Dias RM:562399
+// Kenzo de Melo Sato RM:563648
+// Gregory Debom RM:562346
+// Nathan Lopes RM: 563507
+// ==============================
+
+typedef struct {
+    int   rm;
+    char  nome[10];
+} Aluno;
+
+void imprimir(const Aluno *v, int n, const char *titulo) {
+    printf("%s\n", titulo);
+    for (int i = 0; i < n; i++) {
+        printf("RM:%d | Nome:%-10s \n", v[i].rm, v[i].nome);
+    }
+}
+
+void bubble_rm_desc(Aluno *v, int n) {
+    int trocou;
+    int compa = 0;
+    do {
+        trocou = 0;
+        for (int i = 0; i < n - 1; i++) {
+            compa++;
+            if (v[i].rm < v[i+1].rm) {
+                Aluno tmp = v[i];
+                v[i] = v[i+1];
+                v[i+1] = tmp;
+                trocou = 1;
+            }
+        }
+        n--;
+    } while (trocou);
+    printf("\ncomparações %d", compa);
+}
+void bubble_rm_cres(Aluno *v, int n) {
+    int trocou;
+    int compa = 0;
+    do {
+        trocou = 0;
+        for (int i = 0; i < n - 1; i++) {
+            compa++;
+            if (v[i].rm > v[i+1].rm) {
+                Aluno tmp = v[i];
+                v[i] = v[i+1];
+                v[i+1] = tmp;
+                trocou = 1;
+            }
+        }
+        n--;
+    } while (trocou);
+    printf("\ncomparações %d", compa);
+}
+
+int main()
+{
+    Aluno turma[] = {
+        {321, "Ana"},
+        {215, "Bruno"},
+        {405, "Clara"},
+        {198, "Diego"},
+        {377, "Eva"},
+        {142, "Lia"},
+        {543,"gfd"},
+        {963, "ewq"},
+        {673,"yuoiu"},
+        {528,"kenzo"}
+    };
+    int n = (int)(sizeof turma / sizeof turma[0]);
+    
+    // Aluno turma_bubble[n];
+    // memcpy(turma_bubble, turma,sizeof(turma));  
+
+    imprimir(turma, n, "Estado inicial");
+    
+    bubble_rm_desc(turma, n);
+   printf("-Primeiro fiz ele reverso para assim ordenar\n");
+    
+    bubble_rm_cres(turma, n);
+    imprimir(turma, n, "\nOrdenado por rm (Crescente) – Bubble (estável)");
+    
+    bubble_rm_desc(turma, n);
+    imprimir(turma, n, "\nOrdenado por rm (decrescente) – Bubble (estável)");
+    return 0;
+}
